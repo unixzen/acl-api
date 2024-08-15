@@ -64,8 +64,6 @@ func main() {
 	http.ListenAndServe(":3333", r)
 }
 
-// CreateArticle persists the posted Article and returns it
-// back to the client as an acknowledgement.
 func AddIPtoFirewall(w http.ResponseWriter, r *http.Request) {
 	var ip Firewall
 
