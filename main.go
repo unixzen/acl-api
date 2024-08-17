@@ -32,7 +32,7 @@ func BasicAuth(next http.Handler) http.Handler {
 }
 
 func checkCredentials(username, password string) bool {
-	return username == "admin" && password == "password"
+	return username == os.Getenv("USERNAME") && password == os.Getenv("PASSWORD")
 }
 
 func LoggerMiddleware(logger *slog.Logger) func(next http.Handler) http.Handler {
@@ -74,14 +74,6 @@ func main() {
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("root."))
-	})
-
-	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("pong"))
-	})
-
-	r.Get("/panic", func(w http.ResponseWriter, r *http.Request) {
-		panic("test")
 	})
 
 	r.Route("/ips", func(r chi.Router) {
